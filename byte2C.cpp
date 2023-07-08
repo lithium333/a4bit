@@ -31,7 +31,7 @@ while(fi.read((char*)&cur,1)) {
 	}
 }
 
-fo << "}" << std::endl;
+fo << "};" << std::endl;
 
 return 0;
 }
