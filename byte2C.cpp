@@ -1,10 +1,8 @@
 #include <iostream>
 #include <fstream>
+#include <cstdint>
 
-uint8_t stuff[]={123,23,44};
-
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
 
 std::fstream fi,fo;
 if (argc<2) {
@@ -14,7 +12,6 @@ fi.open(argv[1],std::ios::in);
 fo.open("audiomem.h",std::ios::out);
 
 fo << "uint8_t audio[]={";
-
 uint8_t cur,element=0;
 bool firstelement=true;
 uint32_t cnt_by=0;
@@ -32,10 +29,10 @@ while(fi.read((char*)&cur,1)) {
 	}
 	cnt_by++;
 }
-
 fo << "};" << std::endl;
-
 fo << "uint32_t asize=" << cnt_by << ";" << std::endl;
 
+fi.close();
+fo.close();
 return 0;
 }

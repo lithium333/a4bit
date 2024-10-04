@@ -1,15 +1,13 @@
 #include <iostream>
 #include <fstream>
+#include <cstdint>
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
 
 std::fstream fi,fo;
-
-fi.open("4bit.raw",std::ios::in);
+fi.open("in4.raw",std::ios::in);
 fo.open("out8.raw",std::ios::out);
 
-int8_t pos=0;
 uint8_t cur,decoded;
 
 while(fi.read((char*)&cur,1)) {
@@ -19,8 +17,7 @@ while(fi.read((char*)&cur,1)) {
 	fo.write((char*)&decoded,1);
 }
 
-
-
-
+fi.close();
+fo.close();
 return 0;
 }

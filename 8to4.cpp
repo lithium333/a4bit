@@ -1,33 +1,30 @@
 #include <iostream>
 #include <fstream>
+#include <cstdint>
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
 
 std::fstream fi,fo;
-
 fi.open("in8.raw",std::ios::in);
-fo.open("4bit.raw",std::ios::out);
+fo.open("out4.raw",std::ios::out);
 
-int8_t pos=0;
-uint8_t cur,duplo,part1,part2;
+bool pos=true;
+uint8_t cur,tupleq,part;
 
 while(fi.read((char*)&cur,1)) {
-	if(pos==0) {
-		duplo=0;
-		part1=((uint8_t)cur)/16;
-		duplo+=(part1<<4);
-		pos=1;
+	if(pos) {
+		part=((uint8_t)cur)>>4;
+		tupleq=(part<<4); // assign MSBs XXXX....
+		pos=false;
 	} else {
-		part2=((uint8_t)cur)/16;
-		duplo+=(part2);
-		fo.write((char*)&duplo,1);
-		pos=0;
+		part=((uint8_t)cur)>>4;
+		tupleq+=part; // assign LSBs ....XXXX
+		fo.write((char*)&tupleq,1);
+		pos=true;
 	}
 }
 
-
-
-
+fi.close();
+fo.close();
 return 0;
 }
